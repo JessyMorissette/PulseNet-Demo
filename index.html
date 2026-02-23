@@ -463,6 +463,7 @@
             <div class="compare-item"><span>Online Learning</span><span class="value">Yes — real-time</span></div>
             <div class="compare-item"><span>Dependencies</span><span class="value">None (libc only)</span></div>
             <div class="compare-item"><span>Training</span><span class="value">In-engine updates (no offline pipeline)</span></div>
+            <div class="compare-item"><span>Model Persistence</span><span class="value">Yes — binary save/load</span></div>
             <div class="compare-item"><span>OOD Behavior</span><span class="value">Low confidence signal (caller decides)</span></div>
             <div class="compare-item"><span>Auditability</span><span class="value">Confidence score + stats per prediction</span></div>
         </div>
@@ -474,6 +475,7 @@
             <div class="compare-item"><span>Online Learning</span><span class="value bad">Typically no (deployed frozen)</span></div>
             <div class="compare-item"><span>Dependencies</span><span class="value bad">Runtime + libs</span></div>
             <div class="compare-item"><span>Training</span><span class="value bad">Offline (often GPU), then deploy</span></div>
+            <div class="compare-item"><span>Model Persistence</span><span class="value bad">Format varies per runtime</span></div>
             <div class="compare-item"><span>OOD Behavior</span><span class="value bad">Incorrect outputs possible</span></div>
             <div class="compare-item"><span>Auditability</span><span class="value bad">Limited / optional tooling</span></div>
         </div>
@@ -514,6 +516,16 @@
         </div>
         <div class="feature-card">
             <div class="feature-icon">🌐</div>
+            <h3>Model Persistence</h3>
+            <p>Save trained models to disk, reload instantly. Zero re-training on restart. Deploy once, persist forever.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🔭</div>
+            <h3>Extended Prediction Horizon</h3>
+            <p>V10.1 captures longer-range patterns for improved disambiguation on complex, structured data streams.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🌐</div>
             <h3>100% Local & Private</h3>
             <p>No cloud, no API keys, no data leaves the device. Perfect for sensitive applications.</p>
         </div>
@@ -527,7 +539,9 @@
     <div class="arch-diagram">PulseNet *pn = pn_create();                      // Allocate engine
 pn_train(pn, data, data_len);                    // Train on your data
 uint8_t next = pn_predict(pn, ctx, len, &amp;conf);  // Predict (confidence out)
-pn_feed(pn, actual_byte);                        // Online learning</div>
+pn_feed(pn, actual_byte);                        // Online learning
+pn_save(pn, "model.pn");                         // Persist trained model
+PulseNet *pn2 = pn_load("model.pn");             // Reload instantly</div>
     <div class="features-grid" style="margin-top:1.5rem;">
         <div class="feature-card">
             <div class="feature-icon">📦</div>
@@ -541,8 +555,8 @@ pn_feed(pn, actual_byte);                        // Online learning</div>
         </div>
         <div class="feature-card">
             <div class="feature-icon">🔄</div>
-            <h3>10 API Functions</h3>
-            <p>create, destroy, reset, train, predict, probability, feed, predict_sequence, get_stats, version — that's it.</p>
+            <h3>13 API Functions</h3>
+            <p>create, destroy, reset, train, predict, probability, feed, predict_sequence, get_stats, <strong style="color:#00d4ff;">save, load</strong>, set_license, version — that's it.</p>
         </div>
     </div>
 </section>
@@ -572,12 +586,12 @@ Detailed architecture available under NDA.</div>
             <p>Real-time biosignal prediction on embedded devices. ECG anomaly detection at 0.5W power.</p>
         </div>
         <div class="feature-card">
-            <div class="feature-icon">🔐</div>
+            <div class="feature-icon">�</div>
             <h3>Cybersecurity</h3>
             <p>Network traffic anomaly detection. Learns normal patterns, flags deviations in real-time.</p>
         </div>
         <div class="feature-card">
-            <div class="feature-icon">🏭</div>
+            <div class="feature-icon">�</div>
             <h3>Industrial IoT</h3>
             <p>Predictive maintenance from sensor streams. Detects pattern changes before equipment failure.</p>
         </div>
@@ -692,7 +706,7 @@ Detailed architecture available under NDA.</div>
 
 <footer>
     <p>© 2024-2026 Jessy Morissette. All rights reserved. PulseNet is proprietary software.</p>
-    <p style="margin-top:0.5rem;">First conceived 2024 | V10.0 | No GPU Required</p>
+    <p style="margin-top:0.5rem;">First conceived 2024 | V10.0 / V10.1 | No GPU Required</p>
 </footer>
 
 <script>
